@@ -1,20 +1,22 @@
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 
 let particlesArray;
 
 let mouse = {
   x: null,
   y: null,
-  radius: (canvas.height / 80) * (canvas.width / 80),
+  radius: Math.sqrt((canvas.height / 10) * (canvas.width / 10)),
 };
 
 canvas.addEventListener("mousemove", (event) => {
   mouse.x = event.x;
   mouse.y = event.y;
+  console.log(mouse.x, mouse.y);
+  console.log(canvas.width, canvas.height);
 });
 
 canvas.addEventListener("mouseleave", () => {
@@ -108,8 +110,8 @@ function initParticles() {
     numberOfParticles = (canvas.height * canvas.width) / 9000;
     for (let i = 0; i < numberOfParticles; i++) {
       let size = Math.random() * 5 + 1;
-      let x = Math.random() * (innerWidth - size * 2) + size;
-      let y = Math.random() * (innerHeight - size * 2) + size;
+      let x = Math.random() * (canvas.width - size * 2) + size;
+      let y = Math.random() * (canvas.height - size * 2) + size;
       let directionX = (Math.random() * 0.4 - 0.2) * 10;
       let directionY = (Math.random() * 0.4 - 0.2) * 10;
       let color = '#8C5523';
@@ -148,9 +150,9 @@ function connectParticles() {
 }
 
 window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    mouse.radius = (canvas.height / 80) * (canvas.width / 80);
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    mouse.radius = Math.sqrt((canvas.height / 80) * (canvas.width / 80));
     initParticles();
 });
 
