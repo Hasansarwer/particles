@@ -46,10 +46,10 @@ class Particle {
   
   update() {
     //check if particle is still within canvas
-    if (this.x > canvas.width || this.x < 0) {
+    if (this.x > canvas.width - this.size || this.x - this.size < 0) {
       this.directionX = -this.directionX;
     }
-    if (this.y > canvas.height || this.y < 0) {
+    if (this.y > canvas.height - this.size || this.y - this.size < 0) {
       this.directionY = -this.directionY;
     }
 
@@ -60,18 +60,22 @@ class Particle {
     if (distance < mouse.radius + this.size) {
         if (mouse.x < this.x && this.x < canvas.width - this.size) {
             this.x += 5;
+            this.x = this.x > canvas.width - this.size ? canvas.width - this.size : this.x; // Ensure x does not go out of bounds
             this.directionX = -this.directionX;
         }
         if (mouse.x > this.x && this.x > this.size) {
             this.x -= 5;
+            this.x = this.x < this.size ? this.size : this.x; // Ensure x does not go out of bounds
             this.directionX = -this.directionX;
         }
         if (mouse.y < this.y && this.y < canvas.height - this.size) {
             this.y += 5;
+            this.y = this.y > canvas.height - this.size ? canvas.height - this.size : this.y; // Ensure y does not go out of bounds
             this.directionY = -this.directionY;
         }
         if (mouse.y > this.y && this.y > this.size) {
             this.y -= 5;
+            this.y = this.y < this.size ? this.size : this.y; // Ensure y does not go out of bounds
             this.directionY = -this.directionY;
         }
     }
@@ -82,14 +86,30 @@ class Particle {
     this.draw();
   }
 }
+
+canvas.addEventListener("click", () => {
+    for (let i = 0; i < 4 ; i++) {
+        let size = Math.random() * 5 + 1;
+        let x = mouse.x + Math.random() * 50 - 25;
+        // Ensure x does not go out of bounds
+        x = x > canvas.width - size ? canvas.width - size : x < size ? size : x; // Ensure x does not go out of bounds
+        // Ensure y does not go out of bounds
+        let y = mouse.y + Math.random() * 50 - 25;
+        y = y > canvas.height - size ? canvas.height - size : y < size ? size : y; // Ensure y does not go out of bounds
+        let directionX = (Math.random() * 0.4 - 0.2) * 10;
+        let directionY = (Math.random() * 0.4 - 0.2) * 10;
+        let color = '#8C5523';
+        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+    }
+});
   
 function initParticles() {
     particlesArray = [];
-    numberOfParticles = (canvas.height * canvas.width) / 2000;
+    numberOfParticles = (canvas.height * canvas.width) / 9000;
     for (let i = 0; i < numberOfParticles; i++) {
       let size = Math.random() * 5 + 1;
-      let x = Math.random() * (innerWidth - size * 2) ;
-      let y = Math.random() * (innerHeight - size * 2) ;
+      let x = Math.random() * (innerWidth - size * 2) + size;
+      let y = Math.random() * (innerHeight - size * 2) + size;
       let directionX = (Math.random() * 0.4 - 0.2) * 10;
       let directionY = (Math.random() * 0.4 - 0.2) * 10;
       let color = '#8C5523';
