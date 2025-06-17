@@ -15,8 +15,6 @@ let mouse = {
 canvas.addEventListener("mousemove", (event) => {
   mouse.x = event.x;
   mouse.y = event.y;
-  console.log(mouse.x, mouse.y);
-  console.log(canvas.width, canvas.height);
 });
 
 canvas.addEventListener("mouseleave", () => {
@@ -152,7 +150,7 @@ function connectParticles() {
 window.addEventListener("resize", () => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
-    mouse.radius = Math.sqrt((canvas.height / 80) * (canvas.width / 80));
+    mouse.radius = Math.sqrt((canvas.height / 10) * (canvas.width / 10));
     initParticles();
 });
 
