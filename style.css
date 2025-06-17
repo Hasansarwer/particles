@@ -29,3 +29,79 @@
   text-shadow: 0 0 5px #000;
   pointer-events: none; /* optional: let clicks pass through */
 }
+
+.card {
+    margin: 0 auto ;
+    padding: 2em;
+    width: 300px;
+    background: #1c1f2b;
+    text-align: center ;
+    border-radius: 10px;
+    position: relative;
+}
+
+/* .card::after{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: conic-gradient(from 0deg at 50% 50%, red, blue, red);
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;  behind the card content 
+    padding: 3px;
+} */
+
+@property --angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.card::after, .card::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    /* background: conic-gradient(from var(--angle), transparent 70%, blue); */
+    background: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1; /* behind the card content */
+    padding: 5px;
+    animation: 3s spin linear infinite;
+}
+
+/* .card:hover::after, .card:hover::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    // background: conic-gradient(from var(--angle), transparent 70%, blue); 
+    background: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1; /* behind the card content 
+    padding: 5px;
+    animation: 3s spin linear infinite;
+} */
+
+.card::before {
+    filter: blur(1.5rem);
+    opacity: 0.5; /* Adjust opacity for the blur effect */
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}

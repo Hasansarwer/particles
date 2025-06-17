@@ -36,10 +36,14 @@ class Particle {
   }
 
   draw() {
+    ctx.save();
+    ctx.shadowColor = "white";
+    ctx.shadowBlur = 50;
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
     ctx.fill();
+    ctx.restore();
   }
 
   // Check particle position, check mouse position, move the particle, draw the particle
