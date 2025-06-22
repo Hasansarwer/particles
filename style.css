@@ -73,7 +73,7 @@
     transform: translate(-50%, -50%);
     z-index: -1; /* behind the card content */
     padding: 5px;
-    animation: 3s spin linear infinite;
+    animation: 1s spin linear infinite;
 }
 
 /* .card:hover::after, .card:hover::before {
